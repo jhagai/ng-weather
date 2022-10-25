@@ -4,5 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    openWeatherMap: {
+        baseUrl: 'http://api.openweathermap.org/data/2.5',
+        appIdKey: 'APPID',
+        appIdValue: '5a4b2d457ecbef9eb2a71e480b947604',
+    },
+    iconUrl: 'https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-hdpi/'
 };

@@ -6,7 +6,7 @@
 export const environment = {
     production: false,
     openWeatherMap: {
-        baseUrl: 'http://api.openweathermap.org/data/2.5',
+        baseUrl: 'https://api.openweathermap.org/data/2.5',
         appIdKey: 'APPID',
         appIdValue: '5a4b2d457ecbef9eb2a71e480b947604',
     },

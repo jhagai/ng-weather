@@ -1,8 +1,23 @@
-<div class="well">
-  <h2>Enter a zipcode:</h2>
-  <input type="text" #zipcode placeholder="Zipcode" class="form-control">
-  <br>
-  <button class="btn btn-primary" (click)="addLocation(zipcode.value)" >
-    Add location
-  </button>
-</div>
+<form class="well" [formGroup]="formGroup">
+    <h2>Enter a zipcode:</h2>
+    <input type="text" placeholder="Zipcode" formControlName="zipcode" class="form-control">
+    <br>
+    <h2>Enter a country:</h2>
+    <app-autocomplete [options]="countries" formControlName="country"></app-autocomplete>
+    <br/>
+    <app-submit-button [source]="obs$ | async" [doneTplEltRef]="DONE" [readyTplEltRef]="READY"
+                       [pendingTplEltRef]="PENDING"></app-submit-button>
+
+</form>
+
+<ng-template #DONE>
+    <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Done</button>
+</ng-template>
+
+<ng-template #READY>
+    <button class="btn btn-primary">Add location</button>
+</ng-template>
+
+<ng-template #PENDING>
+    <button class="btn btn-danger">Adding...</button>
+</ng-template>

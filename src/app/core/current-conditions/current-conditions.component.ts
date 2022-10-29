@@ -1,7 +1,4 @@
-import {Component} from '@angular/core';
-import {WeatherService} from '../weather.service';
-import {LocationService} from '../location.service';
-import {Router} from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LocationModel} from '../models/weather-conditions.model';
 
 @Component({
@@ -11,22 +8,16 @@ import {LocationModel} from '../models/weather-conditions.model';
 })
 export class CurrentConditionsComponent {
 
-    constructor(private weatherService: WeatherService, private locationService: LocationService, private router: Router) {
-    }
+    @Input()
+    locationModels: LocationModel[] = [];
 
-    getCurrentConditions(): LocationModel[] {
-        return this.weatherService.getCurrentConditions();
-    }
+    @Output()
+    remove = new EventEmitter<string>();
 
-    showForecast(zipcode: string): void {
-        this.router.navigate(['/forecast', zipcode])
-    }
-
-    computeWeatherIcon(id: number): string {
-        return this.weatherService.getWeatherIcon(id);
+    constructor() {
     }
 
     removeLocation(zipCode: string): void {
-        this.locationService.removeLocation(zipCode);
+        this.remove.emit(zipCode);
     }
 }

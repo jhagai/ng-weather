@@ -1,6 +1,5 @@
 <div class="container-fluid">
-
-  <app-zipcode-entry> </app-zipcode-entry>
-  <app-current-conditions></app-current-conditions>
-
+    <app-zipcode-entry></app-zipcode-entry>
+    <app-current-conditions (remove)="removeLocation($event)" [locationModels]="locationState.locationModels"
+                            *ngIf="locationState$ | async as locationState"></app-current-conditions>
 </div>

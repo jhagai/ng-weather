@@ -17,5 +17,6 @@ export interface WeatherConditionsModel {
 
 export interface LocationModel {
     zip: string;
+    imageUrl: string;
     data: WeatherConditionsModel;
 }

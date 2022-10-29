@@ -1,0 +1,14 @@
+<div class="form-group has-feedback dropdown">
+    <input type="text" class="form-control" [formControl]="formControl" #inputRef (focusin)="showDropdown = true">
+    <span class="form-control-feedback" aria-hidden="true">{{ selected?.code }}</span>
+    <ng-container *ngIf="filteredOptions$ | async as filteredOptions">
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" [ngClass]="{show: filteredOptions.length && showDropdown}">
+            <li *ngFor="let option of filteredOptions$ | async; trackBy: trackByCode">
+                <a href="#"
+                   (click)="selectOption(option)"
+                   [innerHTML]="option.name | highlightMatchingText: formControl.value">
+                </a>
+            </li>
+        </ul>
+    </ng-container>
+</div>

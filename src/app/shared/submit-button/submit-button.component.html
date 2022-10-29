@@ -1,0 +1,14 @@
+<ng-container *ngTemplateOutlet="buttonStatus$ | async">
+</ng-container>
+
+<ng-template #defaultReadyRef>
+    <button class="btn btn-primary">READY</button>
+</ng-template>
+
+<ng-template #defaultDoneRef>
+    <button class="btn btn-success">DONE</button>
+</ng-template>
+
+<ng-template #defaultPendingRef>
+    <button class="btn btn-danger">PENDING</button>
+</ng-template>

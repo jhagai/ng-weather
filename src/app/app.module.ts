@@ -11,6 +11,9 @@ import {OPEN_WEATHER_MAP_APPID_KEY, OPEN_WEATHER_MAP_APPID_VALUE, OPEN_WEATHER_M
 import {CoreModule} from './core/core.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {OpenWeatherInterceptor} from './core/interceptors/open-weather.interceptor';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
     declarations: [
@@ -22,6 +25,9 @@ import {OpenWeatherInterceptor} from './core/interceptors/open-weather.intercept
         CoreModule,
         routing,
         ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+        StoreModule.forRoot({}, {}),
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     ],
     providers: [
         {provide: OPEN_WEATHER_MAP_BASE_URL, useValue: environment.openWeatherMap.baseUrl},

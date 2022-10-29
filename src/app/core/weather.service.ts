@@ -14,14 +14,13 @@ export class WeatherService {
     constructor(private http: HttpClient, @Inject(ICON_BASE_URL) private iconBaseUrl: string) {
     }
 
-    addCurrentConditions(zipcode: string): void {
+    getCurrentConditions(zipcode: string): Observable<WeatherConditionsModel> {
         // Here we make a request to get the current conditions data from the API.
         const params = (new HttpParams())
             .set('zip', zipcode)
             .set('units', 'imperial');
 
-        this.http.get<WeatherConditionsModel>('weather', {params})
-            .subscribe(data => this.currentConditions.push({zip: zipcode, data: data}));
+        return this.http.get<WeatherConditionsModel>('weather', {params});
     }
 
     removeCurrentConditions(zipcode: string) {
@@ -30,10 +29,6 @@ export class WeatherService {
                 this.currentConditions.splice(+i, 1);
             }
         }
-    }
-
-    getCurrentConditions(): LocationModel[] {
-        return this.currentConditions;
     }
 
     getForecast(zipcode: string): Observable<ForecastModel> {

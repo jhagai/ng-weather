@@ -1,35 +1,25 @@
 import {Injectable} from '@angular/core';
-import {WeatherService} from './weather.service';
 
 export const LOCATIONS = 'locations';
 
 @Injectable({providedIn: 'root'})
 export class LocationService {
 
-    locations: string[] = [];
-
-    constructor(private weatherService: WeatherService) {
+    extractFromLocalStorage(): string[] {
         const locString = localStorage.getItem(LOCATIONS);
+        let locations = [];
         if (locString) {
-            this.locations = JSON.parse(locString);
+            try {
+                locations = JSON.parse(locString);
+            } catch (e) {
+                console.error(`An error ocurred while trying to unmarshal locations from local storage <${locString}>`, e);
+            }
         }
-        for (const loc of this.locations) {
-            this.weatherService.addCurrentConditions(loc);
-        }
+        return locations;
     }
 
-    addLocation(zipcode: string) {
-        this.locations.push(zipcode);
-        localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
-        this.weatherService.addCurrentConditions(zipcode);
+    persistInLocalStorage(locations: string[]) {
+        localStorage.setItem(LOCATIONS, JSON.stringify(locations));
     }
 
-    removeLocation(zipcode: string) {
-        const index = this.locations.indexOf(zipcode);
-        if (index !== -1) {
-            this.locations.splice(index, 1);
-            localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
-            this.weatherService.removeCurrentConditions(zipcode);
-        }
-    }
 }
